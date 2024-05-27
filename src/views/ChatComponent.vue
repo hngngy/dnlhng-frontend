@@ -7,14 +7,16 @@
 
     <div id="messagesBox">
       <div v-for="nachricht in nachrichten" :key="nachricht.id" class="message">
-        <strong>{{ nachricht.benutzername }}</strong>: {{ nachricht.text }} <div class='timestamp'>{{ nachricht.zeitstempel }}</div>
+        <strong>{{ nachricht.benutzername }}</strong
+        >: {{ nachricht.text }}
+        <div class="timestamp">{{ nachricht.zeitstempel }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { API_BASE_URL } from '@/apiConfig';
+import { API_BASE_URL } from '@/apiConfig'
 
 export default {
   data() {
@@ -22,41 +24,42 @@ export default {
       benutzername: '',
       text: '',
       nachrichten: []
-    };
+    }
   },
   methods: {
     fetchMessages() {
       fetch(`${API_BASE_URL}/chat`)
-        .then(response => response.json())
-        .then(data => {
-          this.nachrichten = data;
-        }).catch(error => {
-          console.error('Fehler beim Abrufen der Nachrichten:', error);
-        });
+        .then((response) => response.json())
+        .then((data) => {
+          this.nachrichten = data
+        })
+        .catch((error) => {
+          console.error('Fehler beim Abrufen der Nachrichten:', error)
+        })
     },
     sendeNachricht() {
       const nachricht = {
         benutzername: this.benutzername,
         text: this.text
-      };
+      }
       fetch(`${API_BASE_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nachricht)
       })
-      .then(() => {
-        this.text = '';
-        this.fetchMessages();
-      })
-      .catch(error => {
-        console.error('Fehler beim Senden der Nachricht:', error);
-      });
+        .then(() => {
+          this.text = ''
+          this.fetchMessages()
+        })
+        .catch((error) => {
+          console.error('Fehler beim Senden der Nachricht:', error)
+        })
     }
   },
   mounted() {
-    this.fetchMessages();
+    this.fetchMessages()
   }
-};
+}
 </script>
 
 <style>
