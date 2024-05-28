@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     loadPosts() {
-      const baseUrl = 'https://dnlhng-backend.onrender.com'
+      const baseUrl = import.meta.env.VITE_APP_BACKEND_BASE_URL
       const endpoint = baseUrl + '/posts'
       const requestOptions = {
         method: 'GET',

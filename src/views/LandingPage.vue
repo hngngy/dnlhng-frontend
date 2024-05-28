@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Welcome to Our Chat Platform!</h1>
+    <h2>BLABLABLABLA</h2>
     <div v-for="chatroom in chatrooms" :key="chatroom">
       <router-link :to="`/chat/${chatroom}`">{{ chatroom }}</router-link>
     </div>
