@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     loadPosts() {
+      console.log('blablabla')
       const baseUrl = import.meta.env.VITE_APP_BACKEND_BASE_URL
       const endpoint = baseUrl + '/posts'
       const requestOptions = {
@@ -41,10 +42,10 @@ export default {
           })
         )
         .catch((error) => console.log('error', error))
-    },
-    mounted() {
-      this.loadPosts()
     }
+  },
+  mounted() {
+    this.loadPosts()
   }
 }
 </script>
