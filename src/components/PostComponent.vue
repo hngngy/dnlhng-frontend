@@ -1,11 +1,18 @@
 <template>
   <div>
     <h1>Posts</h1>
-    <ul>
-      <li v-for="post in posts" :key="post.id" class="posts">
-        {{ post.username }} {{ post.message }}
-      </li>
-    </ul>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Message</th>
+      </tr>
+      <tr v-for="post in posts" :key="post.id">
+        <td>{{ post.id }}</td>
+        <td>{{ post.username }}</td>
+        <td>({{ post.message }})</td>
+      </tr>
+    </table>
   </div>
 </template>
 
