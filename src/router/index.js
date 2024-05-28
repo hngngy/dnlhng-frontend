@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LandingPage from '../views/LandingPage.vue' // Stelle sicher, dass dieser Import korrekt ist
 import ChatComponent from '../views/ChatComponent.vue'
+import PostComponent from '../components/PostComponent.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,11 @@ const router = createRouter({
       path: '/chat',
       name: 'chat',
       component: ChatComponent
+    },
+    {
+      path: '/posts',
+      name: 'Posts',
+      component: PostComponent
     }
   ]
 })
