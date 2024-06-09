@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import LandingPage from '../views/LandingPage.vue' // Stelle sicher, dass dieser Import korrekt ist
+import LandingPage from '../views/LandingPage.vue'
 import ChatComponent from '../views/ChatComponent.vue'
 import PostComponent from '../components/PostComponent.vue'
 
@@ -35,8 +35,12 @@ const router = createRouter({
       path: '/posts',
       name: 'Posts',
       component: PostComponent
+    },
+    {
+      path: '/:pathMatch(.*)*', // Fängt alle undefinierten Routen ab
+      redirect: '/landing' // Leitet um zur Landing Page
     }
   ]
 })
 
-export default router
+export default router;
