@@ -5,6 +5,7 @@ import ChatComponent from '../views/ChatComponent.vue'
 import PostComponent from '../components/PostComponent.vue'
 
 const router = createRouter({
+  mode: 'history',
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -43,4 +44,4 @@ const router = createRouter({
   ]
 })
 
-export default router;
+export default router
