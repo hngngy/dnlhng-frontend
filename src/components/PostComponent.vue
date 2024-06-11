@@ -28,12 +28,12 @@ export default {
   methods: {
     loadPosts() {
       const baseUrl = import.meta.env.VITE_APP_BACKEND_BASE_URL
-      const endpoint = baseUrl + '/posts'
+      //const endpoint = baseUrl + '/posts'
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
       }
-      fetch(endpoint, requestOptions)
+      fetch(`${baseUrl}/posts`, requestOptions)
         .then((response) => response.json())
         .then((result) =>
           result.forEach((post) => {
