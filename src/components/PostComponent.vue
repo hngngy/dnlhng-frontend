@@ -17,6 +17,9 @@
 </template>
 
 <script>
+const baseUrl = import.meta.env.VITE_APP_BACKEND_BASE_URL
+import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -27,9 +30,9 @@ export default {
   },
   methods: {
     loadPosts() {
-      const baseUrl = import.meta.env.VITE_APP_BACKEND_BASE_URL
+      //const baseUrl = import.meta.env.VITE_APP_BACKEND_BASE_URL
       //const endpoint = baseUrl + '/posts'
-      const requestOptions = {
+      /**const requestOptions = {
         method: 'GET',
         redirect: 'follow'
       }
@@ -41,6 +44,16 @@ export default {
           })
         )
         .catch((error) => console.log('error', error))
+
+        */
+      axios
+        .get(`${baseUrl}/posts`)
+        .then((response) => {
+          this.posts = response.data
+        })
+        .catch((error) => {
+          console.error('Error loading posts:', error)
+        })
     }
   },
   mounted() {
