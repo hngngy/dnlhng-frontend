@@ -15,7 +15,8 @@ export default {
     }
   },
   mounted() {
-    fetch('http://localhost:8081/chatrooms')
+    const baseUrl = import.meta.env.VITE_APP_BACKEND_BASE_URL
+    fetch(`${baseUrl}/chatrooms`)
       .then((response) => response.json())
       .then((data) => {
         this.chatrooms = data
