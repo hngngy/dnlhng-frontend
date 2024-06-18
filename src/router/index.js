@@ -10,7 +10,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/posts' // Umleitung von der Hauptseite zur Landing Page
+      redirect: '/posts'
     },
     {
       path: '/landing',
