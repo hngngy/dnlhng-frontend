@@ -5,14 +5,13 @@
         <q-toolbar-title>HTWBook</q-toolbar-title>
         <q-space />
   
-        <!-- Navigation Links -->
         <q-btn flat to="/home" label="Home" type="a" />
         <q-btn flat to="/about" label="About" type="a" />
         <q-btn flat to="/posts" label="Posts" type="a" />
+        <q-btn flat to="/chat" label="chat" type="a" />
   
       </q-toolbar>
   
-      <!-- Hauptbereich für geroutete Ansichten -->
       <router-view></router-view>
   
       <!-- Footer -->
@@ -27,7 +26,7 @@
     name: 'MainLayout',
     methods: {
       toggleDrawer() {
-        // Logik zum Öffnen/Schließen einer seitlichen Navigationsleiste (falls implementiert)
+        // Logik zum Öffnen/Schließen Navigationsleiste
       }
     }
   }

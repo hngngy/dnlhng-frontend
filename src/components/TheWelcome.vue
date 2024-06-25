@@ -27,7 +27,7 @@ export default {
   methods: {
     createChat() {
       // Erstellen neuer Chat
-      console.log("Erstellen eines neuen Chats... (Logik hier implementieren)");
+      console.log("Erstellen eines neuen Chats... (Logik implementieren)");
     }
   }
 }
