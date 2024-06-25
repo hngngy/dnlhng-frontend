@@ -5,11 +5,17 @@
 </template>
 
 <style>
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px);
+  text-align: center;
+}
+
 @media (min-width: 1024px) {
   .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+    padding: 20px;
   }
 }
 </style>
