@@ -1,14 +1,17 @@
 <template>
   <div>
     <h1>Posts</h1>
+    <form>
+      <input type="text" placeholder="Username" v-model="username" />
+      <input type="text" placeholder="Your Message" v-model="message" @keyup.enter="createPost()" />
+      <button type="button" @click="createPost()">Share</button>
+    </form>
     <table>
       <tr>
-        <th>ID</th>
         <th>Username</th>
         <th>Message</th>
       </tr>
       <tr v-for="post in posts" :key="post.id">
-        <td>{{ post.id }}</td>
         <td>{{ post.username }}</td>
         <td>({{ post.message }})</td>
       </tr>
@@ -54,6 +57,24 @@ export default {
         .catch((error) => {
           console.error('Error loading posts:', error)
         })
+    },
+    deletePosts(id) {
+      axios
+        .delete(`${baseUrl}/posts/${id}`)
+        .then(() => (this.posts.value = this.posts.value.filter((h) => h.id !== id)))
+        .catch((error) => {
+          console.error('Error deleting post:', error)
+        })
+    },
+    createPost() {
+      const data = {
+        username: this.username,
+        message: this.message
+      }
+      axios
+        .post(`${baseUrl}/posts`, data)
+        .then((response) => this.posts.value.push(response.data))
+        .catch((error) => console.log(error))
     }
   },
   mounted() {
