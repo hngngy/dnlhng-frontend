@@ -14,6 +14,9 @@
       <tr v-for="post in posts" :key="post.id">
         <td>{{ post.username }}</td>
         <td>({{ post.message }})</td>
+        <td>
+          <button @click="deletePost(post.id)" class="delete">delete</button>
+        </td>
       </tr>
     </table>
   </div>
@@ -58,7 +61,7 @@ export default {
           console.error('Error loading posts:', error)
         })
     },
-    deletePosts(id) {
+    deletePost(id) {
       axios
         .delete(`${baseUrl}/posts/${id}`)
         .then(() => (this.posts.value = this.posts.value.filter((h) => h.id !== id)))
