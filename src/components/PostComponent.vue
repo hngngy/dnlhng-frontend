@@ -97,10 +97,12 @@ table {
 }
 
 button {
-  border-radius: 48px;
+  border-radius: 32px;
   padding: 8px;
   border: none;
   cursor: pointer;
+  background: rgb(36, 199, 74);
+  color: white;
 
   &.delete {
     background: darkred;
