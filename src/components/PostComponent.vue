@@ -28,7 +28,7 @@
     </q-card>
 
     <q-list bordered separator>
-      <q-item v-for="post in posts" :key="post.id" class="q-mb-sm">
+      <q-item v-for="post in paginatedPosts" :key="post.id" class="q-mb-sm">
         <q-item-section avatar>
           <q-avatar>
             <img src="https://placehold.jp/48x48.png" alt="Avatar" />
@@ -38,14 +38,26 @@
         <q-item-section>
           <q-item-label>{{ post.username }}</q-item-label>
           <q-item-label caption>{{ post.message }}</q-item-label>
+          <q-item-label caption class="text-grey">{{
+            formatTimestamp(post.timestamp)
+          }}</q-item-label>
         </q-item-section>
 
         <q-item-section side>
-          <q-btn dense icon="edit" color="primary" @click="startEdit(post)" />
-          <q-btn dense icon="delete" color="negative" @click="deletePost(post.id)" />
+          <q-btn dense icon="edit" color="primary" @click="startEdit(post)" v-if="!editingPost" />
+          <q-btn
+            dense
+            icon="delete"
+            color="negative"
+            @click="deletePost(post.id)"
+            v-if="!editingPost"
+          />
         </q-item-section>
       </q-item>
     </q-list>
+
+    <!-- Pagination-Steuerung -->
+    <q-pagination v-if="totalPages > 1" v-model="currentPage" :max="totalPages" />
   </q-page>
 </template>
 
@@ -61,7 +73,21 @@ export default {
       editedUsername: '',
       editedMessage: '',
       editingPost: null,
-      posts: []
+      posts: [],
+      currentPage: 1,
+      postsPerPage: 10
+    }
+  },
+  computed: {
+    paginatedPosts() {
+      const startIndex = (this.currentPage - 1) * this.postsPerPage
+      return this.posts.slice(startIndex, startIndex + this.postsPerPage).map((post) => ({
+        ...post,
+        timestamp: new Date(post.timestamp)
+      }))
+    },
+    totalPages() {
+      return Math.ceil(this.posts.length / this.postsPerPage)
     }
   },
   methods: {
@@ -70,6 +96,11 @@ export default {
         .get(`${baseUrl}/posts`)
         .then((response) => {
           this.posts = response.data
+            .map((post) => ({
+              ...post,
+              timestamp: new Date().toISOString() // Hier kannst du anstelle von new Date() deine Backend-Zeitstempel verwenden, wenn verfügbar
+            }))
+            .sort((a, b) => b.id - a.id) // Sortiert die Posts nach ID absteigend
         })
         .catch((error) => {
           console.error('Error loading posts:', error)
@@ -86,12 +117,17 @@ export default {
     createPost() {
       const data = {
         username: this.username,
-        message: this.message
+        message: this.message,
+        timestamp: new Date().toISOString() // Hier kannst du anstelle von new Date() deine Backend-Zeitstempel verwenden, wenn verfügbar
       }
       axios
         .post(`${baseUrl}/posts`, data)
-        .then((response) => this.posts.push(response.data))
-        .catch((error) => console.log(error))
+        .then((response) => {
+          this.posts.unshift({ ...response.data, timestamp: new Date(response.data.timestamp) })
+          this.username = ''
+          this.message = ''
+        })
+        .catch((error) => console.error('Error creating post:', error))
     },
     startEdit(post) {
       this.editingPost = post
@@ -110,7 +146,7 @@ export default {
           const index = this.posts.findIndex((post) => post.id === updatedPost.id)
           if (index !== -1) {
             this.posts.splice(index, 1, response.data)
-            this.cancelEdit() // Beendet den Bearbeitungsmodus
+            this.cancelEdit()
           }
         })
         .catch((error) => console.error('Error updating post:', error))
@@ -119,6 +155,9 @@ export default {
       this.editingPost = null
       this.editedUsername = ''
       this.editedMessage = ''
+    },
+    formatTimestamp(timestamp) {
+      return new Date(timestamp).toLocaleString() // Hier kannst du die Darstellung des Zeitstempels anpassen
     }
   },
   mounted() {

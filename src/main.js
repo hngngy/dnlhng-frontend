@@ -15,7 +15,8 @@ import {
   QItemSection,
   QItemLabel,
   QIcon,
-  QInput
+  QInput,
+  QPagination
 } from 'quasar'
 import 'quasar/src/css/index.sass'
 
@@ -36,7 +37,8 @@ app.use(Quasar, {
     QItemSection,
     QItemLabel,
     QIcon,
-    QInput
+    QInput,
+    QPagination
   }
 })
 
