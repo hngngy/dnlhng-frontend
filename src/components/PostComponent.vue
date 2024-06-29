@@ -15,6 +15,18 @@
       </q-card-actions>
     </q-card>
 
+    <q-card v-if="editingPost">
+      <q-card-section>
+        <q-input outlined v-model="editedUsername" label="Username" />
+        <q-input outlined v-model="editedMessage" label="Your Message" />
+      </q-card-section>
+
+      <q-card-actions>
+        <q-btn color="primary" @click="updatePost">Update</q-btn>
+        <q-btn color="negative" @click="cancelEdit">Cancel</q-btn>
+      </q-card-actions>
+    </q-card>
+
     <q-list bordered separator>
       <q-item v-for="post in posts" :key="post.id" class="q-mb-sm">
         <q-item-section avatar>
@@ -29,6 +41,7 @@
         </q-item-section>
 
         <q-item-section side>
+          <q-btn dense icon="edit" color="primary" @click="startEdit(post)" />
           <q-btn dense icon="delete" color="negative" @click="deletePost(post.id)" />
         </q-item-section>
       </q-item>
@@ -45,6 +58,9 @@ export default {
     return {
       username: '',
       message: '',
+      editedUsername: '',
+      editedMessage: '',
+      editingPost: null,
       posts: []
     }
   },
@@ -76,6 +92,33 @@ export default {
         .post(`${baseUrl}/posts`, data)
         .then((response) => this.posts.push(response.data))
         .catch((error) => console.log(error))
+    },
+    startEdit(post) {
+      this.editingPost = post
+      this.editedUsername = post.username
+      this.editedMessage = post.message
+    },
+    updatePost() {
+      const updatedPost = {
+        id: this.editingPost.id,
+        username: this.editedUsername,
+        message: this.editedMessage
+      }
+      axios
+        .put(`${baseUrl}/posts/${updatedPost.id}`, updatedPost)
+        .then((response) => {
+          const index = this.posts.findIndex((post) => post.id === updatedPost.id)
+          if (index !== -1) {
+            this.posts.splice(index, 1, response.data)
+            this.cancelEdit() // Beendet den Bearbeitungsmodus
+          }
+        })
+        .catch((error) => console.error('Error updating post:', error))
+    },
+    cancelEdit() {
+      this.editingPost = null
+      this.editedUsername = ''
+      this.editedMessage = ''
     }
   },
   mounted() {
