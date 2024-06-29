@@ -48,10 +48,7 @@ export default {
     deletePost(id) {
       axios
         .delete(`${baseUrl}/posts/${id}`)
-        .then(
-          () => (this.posts.value = this.posts.value.filter((h) => h.id !== id)),
-          this.loadPosts()
-        )
+        .then(() => (this.posts = this.posts.filter((post) => post.id !== id))) //, this.loadPosts())
         .catch((error) => {
           console.error('Error deleting post:', error)
         })
@@ -63,7 +60,7 @@ export default {
       }
       axios
         .post(`${baseUrl}/posts`, data)
-        .then((response) => this.posts.value.push(response.data), this.loadPosts())
+        .then((response) => this.posts.push(response.data)) //, this.loadPosts())
         .catch((error) => console.log(error))
     }
   },
