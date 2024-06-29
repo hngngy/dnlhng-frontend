@@ -69,3 +69,39 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+form {
+  display: flex;
+  margin: 0 -16px;
+
+  * {
+    margin: 16px;
+  }
+
+  input {
+    flex-grow: 1;
+  }
+}
+
+table {
+  margin: 8px -8px 0;
+
+  th,
+  td {
+    padding: 8px;
+  }
+}
+
+button {
+  border-radius: 48px;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+
+  &.delete {
+    background: darkred;
+    color: white;
+  }
+}
+</style>
