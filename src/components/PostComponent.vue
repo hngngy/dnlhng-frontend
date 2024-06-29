@@ -118,7 +118,7 @@ export default {
       const data = {
         username: this.username,
         message: this.message,
-        timestamp: new Date().toISOString() // Hier kannst du anstelle von new Date() deine Backend-Zeitstempel verwenden, wenn verfügbar
+        timestamp: new Date().toISOString()
       }
       axios
         .post(`${baseUrl}/posts`, data)
@@ -146,7 +146,7 @@ export default {
           const index = this.posts.findIndex((post) => post.id === updatedPost.id)
           if (index !== -1) {
             this.posts.splice(index, 1, response.data)
-            this.cancelEdit()
+            this.cancelEdit() // Beendet den Bearbeitungsmodus
           }
         })
         .catch((error) => console.error('Error updating post:', error))
