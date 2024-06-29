@@ -1,25 +1,39 @@
 <template>
-  <div>
-    <h1>Posts</h1>
-    <form>
-      <input type="text" placeholder="Username" v-model="username" />
-      <input type="text" placeholder="Your Message" v-model="message" @keyup.enter="createPost()" />
-      <button type="button" @click="createPost()">Share</button>
-    </form>
-    <table>
-      <tr>
-        <th>Username</th>
-        <th>Message</th>
-      </tr>
-      <tr v-for="post in posts" :key="post.id">
-        <td>{{ post.username }}</td>
-        <td>({{ post.message }})</td>
-        <td>
-          <button @click="deletePost(post.id)" class="delete">delete</button>
-        </td>
-      </tr>
-    </table>
-  </div>
+  <q-page padding>
+    <q-card class="q-mb-md">
+      <q-card-section>
+        <div class="text-h6">Blackboard</div>
+      </q-card-section>
+
+      <q-card-section>
+        <q-input outlined v-model="username" label="Username" />
+        <q-input outlined v-model="message" label="Your Message" @keyup.enter="createPost()" />
+      </q-card-section>
+
+      <q-card-actions class="share-button">
+        <q-btn color="primary" @click="createPost">Share</q-btn>
+      </q-card-actions>
+    </q-card>
+
+    <q-list bordered separator>
+      <q-item v-for="post in posts" :key="post.id" class="q-mb-sm">
+        <q-item-section avatar>
+          <q-avatar>
+            <img src="https://placehold.jp/48x48.png" alt="Avatar" />
+          </q-avatar>
+        </q-item-section>
+
+        <q-item-section>
+          <q-item-label>{{ post.username }}</q-item-label>
+          <q-item-label caption>{{ post.message }}</q-item-label>
+        </q-item-section>
+
+        <q-item-section side>
+          <q-btn dense icon="delete" color="negative" @click="deletePost(post.id)" />
+        </q-item-section>
+      </q-item>
+    </q-list>
+  </q-page>
 </template>
 
 <script>
@@ -98,12 +112,43 @@ button {
   padding: 8px;
   border: none;
   cursor: pointer;
-  background: rgb(36, 199, 74);
+  background: #76b900;
   color: white;
 
   &.delete {
     background: darkred;
     color: white;
   }
+}
+
+.q-page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.q-card {
+  max-width: 100%;
+}
+
+.q-input {
+  margin-bottom: 16px;
+}
+
+.q-list {
+  max-width: 100%;
+}
+
+.q-input input {
+  color: black;
+}
+
+.q-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.q-btn {
+  margin: 10px;
+  width: calc(100% - 20px);
 }
 </style>
