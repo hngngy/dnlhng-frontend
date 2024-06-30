@@ -1,14 +1,12 @@
 <template>
   <div class="layout">
     <q-toolbar class="custom-toolbar text-white">
-      <q-btn flat round dense icon="menu" class="q-mr-sm" @click="toggleDrawer" />
       <q-toolbar-title>HTWBook</q-toolbar-title>
       <q-space />
 
       <q-btn flat to="/home" label="Home" type="a" />
       <q-btn flat to="/about" label="About" type="a" />
-      <q-btn flat to="/posts" label="Posts" type="a" />
-      <q-btn flat to="/chat" label="chat" type="a" />
+      <q-btn flat to="/posts" label="Feed" type="a" />
       <q-btn flat icon="brightness_4" @click="toggleDarkMode" />
     </q-toolbar>
 

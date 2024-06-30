@@ -2,7 +2,7 @@
   <q-page padding>
     <q-card class="q-mb-md">
       <q-card-section>
-        <div class="text-h6">Blackboard</div>
+        <div class="text-h6">HTWBook Feed</div>
       </q-card-section>
 
       <q-card-section>

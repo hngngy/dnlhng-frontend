@@ -1,11 +1,10 @@
 <template>
   <div class="home">
-    <h1>Welcome to Your Vue App</h1>
-    <p>This is your starting page. Feel free to modify it and explore the features of your Vue application.</p>
+    <h1>Welcome to our Mini Social Network</h1>
+    <p>Hier findet ihr das Webtech-Projekt von Daniel und Hoang.</p>
 
     <div class="links">
-      <router-link to="/chat" class="button">Go to Chat</router-link>
-      <router-link to="/posts" class="button">View Posts</router-link>
+      <router-link to="/posts" class="button">View Feed</router-link>
       <router-link to="/about" class="button">About Us</router-link>
     </div>
   </div>
