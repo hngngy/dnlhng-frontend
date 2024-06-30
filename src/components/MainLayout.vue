@@ -50,5 +50,6 @@ export default {
   text-align: center;
   padding: 10px;
   background: #76b900;
+  color: white;
 }
 </style>
