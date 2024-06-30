@@ -27,6 +27,12 @@
       </q-card-actions>
     </q-card>
 
+    <q-card>
+      <q-card-section v-if="!posts.length">
+        <div class="text-h6">No Posts yet!</div>
+      </q-card-section>
+    </q-card>
+
     <q-list bordered separator>
       <q-item v-for="post in paginatedPosts" :key="post.id" class="q-mb-sm">
         <q-item-section avatar>
