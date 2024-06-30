@@ -14,7 +14,7 @@ const router = createRouter({
       children: [
         {
           path: '',
-          redirect: '/posts'
+          redirect: '/home'
         },
         {
           path: 'landing',
@@ -45,9 +45,9 @@ const router = createRouter({
     },
     {
       path: '/:pathMatch(.*)*',
-      redirect: '/landing' 
+      redirect: '/landing'
     }
   ]
 })
 
-export default router;
+export default router
