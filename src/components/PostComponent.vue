@@ -88,7 +88,7 @@ export default {
       axios
         .get(`${baseUrl}/posts`)
         .then((response) => {
-          this.posts = response.data.sort((a, b) => b.id - a.id) // Sortiert die Posts nach ID absteigend
+          this.posts = response.data.sort((a, b) => b.id - a.id)
         })
         .catch((error) => {
           console.error('Error loading posts:', error)
@@ -133,7 +133,7 @@ export default {
           const index = this.posts.findIndex((post) => post.id === updatedPost.id)
           if (index !== -1) {
             this.posts.splice(index, 1, response.data)
-            this.cancelEdit() // Beendet den Bearbeitungsmodus
+            this.cancelEdit()
           }
         })
         .catch((error) => console.error('Error updating post:', error))
@@ -142,9 +142,6 @@ export default {
       this.editingPost = null
       this.editedUsername = ''
       this.editedMessage = ''
-    },
-    formatTimestamp(timestamp) {
-      return new Date(timestamp).toLocaleString() // Hier kannst du die Darstellung des Zeitstempels anpassen
     },
     generateAvatarUrl(username) {
       let hash = 0
