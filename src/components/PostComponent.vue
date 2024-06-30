@@ -38,9 +38,6 @@
         <q-item-section>
           <q-item-label>{{ post.username }}</q-item-label>
           <q-item-label caption>{{ post.message }}</q-item-label>
-          <q-item-label caption class="text-grey">{{
-            formatTimestamp(post.timestamp)
-          }}</q-item-label>
         </q-item-section>
 
         <q-item-section side>
@@ -74,17 +71,13 @@ export default {
       editingPost: null,
       posts: [],
       currentPage: 1,
-      postsPerPage: 10,
-      isDarkMode: localStorage.getItem('isDarkMode') === 'true'
+      postsPerPage: 10
     }
   },
   computed: {
     paginatedPosts() {
       const startIndex = (this.currentPage - 1) * this.postsPerPage
-      return this.posts.slice(startIndex, startIndex + this.postsPerPage).map((post) => ({
-        ...post,
-        timestamp: new Date(post.timestamp)
-      }))
+      return this.posts.slice(startIndex, startIndex + this.postsPerPage)
     },
     totalPages() {
       return Math.ceil(this.posts.length / this.postsPerPage)
@@ -95,12 +88,7 @@ export default {
       axios
         .get(`${baseUrl}/posts`)
         .then((response) => {
-          this.posts = response.data
-            .map((post) => ({
-              ...post,
-              timestamp: new Date().toISOString() // Hier kannst du anstelle von new Date() deine Backend-Zeitstempel verwenden, wenn verfügbar
-            }))
-            .sort((a, b) => b.id - a.id) // Sortiert die Posts nach ID absteigend
+          this.posts = response.data.sort((a, b) => b.id - a.id) // Sortiert die Posts nach ID absteigend
         })
         .catch((error) => {
           console.error('Error loading posts:', error)
@@ -117,14 +105,12 @@ export default {
     createPost() {
       const data = {
         username: this.username,
-        message: this.message,
-        timestamp: new Date().toISOString()
+        message: this.message
       }
       axios
         .post(`${baseUrl}/posts`, data)
         .then((response) => {
-          const now = new Date().toISOString()
-          this.posts.unshift({ ...response.data, timestamp: now })
+          this.posts.unshift(response.data)
           this.username = ''
           this.message = ''
         })
@@ -139,8 +125,7 @@ export default {
       const updatedPost = {
         id: this.editingPost.id,
         username: this.editedUsername,
-        message: this.editedMessage,
-        timestamp: this.editingPost.timestamp
+        message: this.editedMessage
       }
       axios
         .put(`${baseUrl}/posts/${updatedPost.id}`, updatedPost)
