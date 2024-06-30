@@ -31,7 +31,7 @@
       <q-item v-for="post in paginatedPosts" :key="post.id" class="q-mb-sm">
         <q-item-section avatar>
           <q-avatar>
-            <img src="https://placehold.jp/48x48.png" alt="Avatar" />
+            <img :src="generateAvatarUrl(post.username)" alt="Avatar" />
           </q-avatar>
         </q-item-section>
 
@@ -160,6 +160,14 @@ export default {
     },
     formatTimestamp(timestamp) {
       return new Date(timestamp).toLocaleString() // Hier kannst du die Darstellung des Zeitstempels anpassen
+    },
+    generateAvatarUrl(username) {
+      let hash = 0
+      for (let i = 0; i < username.length; i++) {
+        hash = username.charCodeAt(i) + ((hash << 5) - hash)
+      }
+      const color = (hash & 0x00ffffff).toString(16).toUpperCase()
+      return `https://via.placeholder.com/48x48/${color}/FFFFFF?text=${username.charAt(0).toUpperCase()}`
     }
   },
   mounted() {
