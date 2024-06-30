@@ -56,7 +56,6 @@
       </q-item>
     </q-list>
 
-    <!-- Pagination-Steuerung -->
     <q-pagination v-if="totalPages > 1" v-model="currentPage" :max="totalPages" />
   </q-page>
 </template>
@@ -123,7 +122,8 @@ export default {
       axios
         .post(`${baseUrl}/posts`, data)
         .then((response) => {
-          this.posts.unshift({ ...response.data, timestamp: new Date(response.data.timestamp) })
+          const now = new Date().toISOString()
+          this.posts.unshift({ ...response.data, timestamp: now })
           this.username = ''
           this.message = ''
         })
@@ -138,7 +138,8 @@ export default {
       const updatedPost = {
         id: this.editingPost.id,
         username: this.editedUsername,
-        message: this.editedMessage
+        message: this.editedMessage,
+        timestamp: this.editingPost.timestamp
       }
       axios
         .put(`${baseUrl}/posts/${updatedPost.id}`, updatedPost)
