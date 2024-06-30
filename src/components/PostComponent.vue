@@ -1,12 +1,12 @@
 <template>
-  <q-page :class="{ 'dark-mode': isDarkMode }" padding>
+  <q-page padding>
     <q-card class="q-mb-md">
       <q-card-section>
         <div class="text-h6">Blackboard</div>
       </q-card-section>
 
       <q-card-section>
-        <q-input outlined v-model="username" label="Username" />
+        <q-input outlined v-model="savedUsername" label="Username" />
         <q-input outlined v-model="message" label="Your Message" @keyup.enter="createPost()" />
       </q-card-section>
 
@@ -65,6 +65,7 @@ export default {
   data() {
     return {
       username: '',
+      savedUsername: '',
       message: '',
       editedUsername: '',
       editedMessage: '',
@@ -104,13 +105,14 @@ export default {
     },
     createPost() {
       const data = {
-        username: this.username,
+        username: this.username || this.savedUsername,
         message: this.message
       }
       axios
         .post(`${baseUrl}/posts`, data)
         .then((response) => {
           this.posts.unshift(response.data)
+          this.savedUsername = this.username || this.savedUsername
           this.username = ''
           this.message = ''
         })
