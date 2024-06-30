@@ -9,22 +9,26 @@
       <q-btn flat to="/about" label="About" type="a" />
       <q-btn flat to="/posts" label="Posts" type="a" />
       <q-btn flat to="/chat" label="chat" type="a" />
+      <q-btn flat icon="brightness_4" @click="toggleDarkMode" />
     </q-toolbar>
 
     <router-view></router-view>
 
-    <footer class="footer">
-      © 2024 DeineApp
-    </footer>
+    <footer class="footer">© 2024 HTWBook</footer>
   </div>
 </template>
 
 <script>
+import { Dark } from 'quasar'
+
 export default {
   name: 'MainLayout',
   methods: {
     toggleDrawer() {
       // Öffnen schließen sidebar
+    },
+    toggleDarkMode() {
+      Dark.toggle()
     }
   }
 }
@@ -38,7 +42,7 @@ export default {
 }
 
 .custom-toolbar {
-  background-color: #76B900;
+  background-color: #76b900;
 }
 
 .footer {

@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page :class="{ 'dark-mode': isDarkMode }" padding>
     <q-card class="q-mb-md">
       <q-card-section>
         <div class="text-h6">Blackboard</div>
@@ -74,7 +74,8 @@ export default {
       editingPost: null,
       posts: [],
       currentPage: 1,
-      postsPerPage: 10
+      postsPerPage: 10,
+      isDarkMode: localStorage.getItem('isDarkMode') === 'true'
     }
   },
   computed: {
@@ -168,42 +169,6 @@ export default {
 </script>
 
 <style scoped>
-form {
-  display: flex;
-  margin: 0 -16px;
-
-  * {
-    margin: 16px;
-  }
-
-  input {
-    flex-grow: 1;
-  }
-}
-
-table {
-  margin: 8px -8px 0;
-
-  th,
-  td {
-    padding: 8px;
-  }
-}
-
-button {
-  border-radius: 32px;
-  padding: 8px;
-  border: none;
-  cursor: pointer;
-  background: #76b900;
-  color: white;
-
-  &.delete {
-    background: darkred;
-    color: white;
-  }
-}
-
 .q-page {
   max-width: 600px;
   margin: 0 auto;
