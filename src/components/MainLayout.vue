@@ -49,6 +49,6 @@ export default {
   margin-top: auto;
   text-align: center;
   padding: 10px;
-  background: #f4f4f4;
+  background: #76b900;
 }
 </style>
