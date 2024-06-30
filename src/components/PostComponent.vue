@@ -17,8 +17,8 @@
 
     <q-card v-if="editingPost">
       <q-card-section>
-        <q-input outlined v-model="editedUsername" label="Username" />
-        <q-input outlined v-model="editedMessage" label="Your Message" />
+        <q-input outlined v-model="editedUsername" label="Username" @keyup.enter="updatePost" />
+        <q-input outlined v-model="editedMessage" label="Your Message" @keyup.enter="updatePost" />
       </q-card-section>
 
       <q-card-actions>
